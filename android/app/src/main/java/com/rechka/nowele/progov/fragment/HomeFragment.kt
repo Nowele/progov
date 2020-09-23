@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rechka.nowele.progov.R
-import com.rechka.nowele.progov.model.TestData
-import com.rechka.nowele.progov.recyclerView.DefaultRecyclerViewAdapter
+import com.rechka.nowele.progov.model.RecyclerViewRow
+import com.rechka.nowele.progov.recyclerView.RecyclerViewListAdapter
 
 class HomeFragment : Fragment() {
 
@@ -19,11 +19,11 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewList: RecyclerView
 
     private lateinit var viewModel: HomeViewModel
-    private var testUpdateObserver = Observer<ArrayList<TestData>> {
-        setupRecyclerView(it)
+    private var recyclerViewRowsObserver = Observer<ArrayList<RecyclerViewRow>> {
+        setupRecyclerViewList(it)
     }
 
     override fun onCreateView(
@@ -31,21 +31,21 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val layout = inflater.inflate(R.layout.home_fragment, container, false)
-        recyclerView = layout.findViewById(R.id.recycler_view_list)
+        recyclerViewList = layout.findViewById(R.id.recycler_view_list)
         return layout
     }
 
-    private fun setupRecyclerView(arrayList: ArrayList<TestData>) {
-        recyclerView.apply {
+    private fun setupRecyclerViewList(arrayList: ArrayList<RecyclerViewRow>) {
+        recyclerViewList.apply {
             layoutManager = LinearLayoutManager(view?.context)
-            adapter = DefaultRecyclerViewAdapter(arrayList)
+            adapter = RecyclerViewListAdapter(arrayList)
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.getLiveTestData().observe(viewLifecycleOwner, testUpdateObserver)
+        viewModel.getLiveRecyclerViewRows().observe(viewLifecycleOwner, recyclerViewRowsObserver)
     }
 
 }

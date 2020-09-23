@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="default_margin">16dp</dimen>
+
+    <!-- CardView dimens -->
+    <dimen name="default_card_view_elevation">2dp</dimen>
+    <dimen name="default_card_view_corner_radius">2dp</dimen>
+
+</resources>

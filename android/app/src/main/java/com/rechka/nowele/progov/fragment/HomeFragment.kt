@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerViewList(arrayList: ArrayList<RecyclerViewRow>) {
         recyclerViewList.apply {
-            layoutManager = LinearLayoutManager(view?.context)
+            layoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
             adapter = RecyclerViewListAdapter(arrayList)
         }
     }

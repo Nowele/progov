@@ -2,13 +2,15 @@ package com.rechka.nowele.progov.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rechka.nowele.progov.R
 import com.rechka.nowele.progov.model.RecyclerViewRow
 import kotlinx.android.synthetic.main.recycler_view_row.view.*
 
 /**
- * RecyclerView list of RecyclerView rows
+ * RecyclerView vertical list Adapter.
+ * List of recycler_view_row.
  */
 class RecyclerViewListAdapter(private var arrayList: ArrayList<RecyclerViewRow>) : RecyclerView.Adapter<RecyclerViewListHolder>() {
 
@@ -27,14 +29,21 @@ class RecyclerViewListAdapter(private var arrayList: ArrayList<RecyclerViewRow>)
         position: Int
     ) {
         holder.itemView.apply {
-            val row = arrayList[position]
-            row_title.text = row.title
-            //@TODO - setup recycler view row
+            val recyclerViewRow = arrayList[position]
+            row_title.text = recyclerViewRow.title
+            setupRecyclerViewRow(row, recyclerViewRow.row)
         }
     }
 
     override fun getItemCount(): Int {
         return arrayList.size
+    }
+
+    private fun setupRecyclerViewRow(row: RecyclerView, rowData: ArrayList<Any>) {
+        row.apply {
+            layoutManager = LinearLayoutManager(row.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = RecyclerViewRowAdapter(rowData)
+        }
     }
 
 }
